@@ -11,9 +11,13 @@ class MiLightWifiController:
     def __init__(self, ip_address=None, port=None):
         if ip_address is None:
             self.ip_address = DEFAULT_IP
-        if port is None:
+        else:
+	    self.ip_address = ip_address
+	if port is None:
             self.port = DEFAULT_PORT
-
+	else:
+	    self.port = port
+	
     def send_message(self, message):
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -30,7 +34,7 @@ class MiLightWifiController:
             time.sleep(sleep_time)
 
     def all_on(self):
-        self.send_message('0x42 0x00 0x55')
+        self.send_message(bytearray([0x42, 0x00, 0x55]))
 
     def all_off(self):
-        self.send_message('0x41 0x00 0x55')
+        self.send_message(bytearray([0x41, 0x00, 0x55]))

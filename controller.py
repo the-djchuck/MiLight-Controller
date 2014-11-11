@@ -15,13 +15,22 @@ class MiLightWifiController:
             self.port = DEFAULT_PORT
 
     def send_message(self, message):
-        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        sock.sendto(message, (self.ip_address, self.port))
+        try:
+            sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            sock.sendto(message, (self.ip_address, self.port))
+            sock.close()
+        except socket.error:
+            print 'Message %s could not be sent' % message
 
     def send_multiple_messages(self, messages, sleep_time=None):
         if sleep_time is None:
             sleep_time = DEFAULT_SLEEP
-
         for message in messages:
-            self.sendMessage(self, message)
+            self.send_message(message)
             time.sleep(sleep_time)
+
+    def all_on(self):
+        self.send_message('0x42 0x00 0x55')
+
+    def all_off(self):
+        self.send_message('0x41 0x00 0x55')

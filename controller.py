@@ -28,7 +28,7 @@ class MiLightWifiController:
             print 'Message could not be sent'
 
     def send_multiple_messages(self, messages, sleep_time=None):
-        if sleep_time is None:
+	if sleep_time is None:
             sleep_time = DEFAULT_SLEEP
         for message in messages:
             self.send_message(message)

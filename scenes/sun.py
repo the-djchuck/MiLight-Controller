@@ -1,4 +1,5 @@
 import controller
+import values
 
 
 class SunObject:
@@ -69,7 +70,7 @@ class SunObject:
         """
         This will simulate a sunrise for selected zone
         """
-        self.ctl.send_message([ZONES_ON[zone], 0x00, 0x55])
+        self.ctl.send_message([values.ZONE_ON[zone], 0x00, 0x55])
         self.ctl.send_message([0x4E, 0x02, 0x55])
         self.ctl.send_multiple_messages(self.sunrise, step_time)
 
@@ -77,5 +78,5 @@ class SunObject:
         """
         This will simulate a sunset for selected zone
         """
-        ctl.send_multiple_messages(self.sunset, sleep_time=30)
-        self.ctl.send_message([ZONES_OFF[zone], 0x00, 0x55])
+        self.ctl.send_multiple_messages(self.sunset, sleep_time=30)
+        self.ctl.send_message([values.ZONE_OFF[zone], 0x00, 0x55])

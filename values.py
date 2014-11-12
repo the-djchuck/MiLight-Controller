@@ -29,3 +29,10 @@ COLORS = {'Violet': 0x00,
           'Lilac': 0xE0,
           'Lavender': 0xF0,
           }
+
+WHITE = {'All': 0xC2,  # All Zones
+         '1': 0xC5,  # Zone 1
+         '2': 0xC7,  # Zone 2
+         '3': 0xC9,  # Zone 3
+         '4': 0xCB,  # Zone 4
+         }

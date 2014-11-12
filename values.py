@@ -1,15 +1,15 @@
-ZONE_ON = {'All': bytearray([0x42, 0x00, 0x55]),  # All Zones
-           '1': bytearray([0x45, 0x00, 0x55]),  # Zone 1
-           '2': bytearray([0x47, 0x00, 0x55]),  # Zone 2
-           '3': bytearray([0x49, 0x00, 0x55]),  # Zone 3
-           '4': bytearray([0x4B, 0x00, 0x55]),  # Zone 4
+ZONE_ON = {'All': 0x42,  # All Zones
+           '1': 0x45,  # Zone 1
+           '2': 0x47,  # Zone 2
+           '3': 0x49,  # Zone 3
+           '4': 0x4B,  # Zone 4
            }
 
-ZONE_OFF = {'All': bytearray([0x41, 0x00, 0x55]),  # All Zones
-            '1': bytearray([0x46, 0x00, 0x55]),  # Zone 1
-            '2': bytearray([0x48, 0x00, 0x55]),  # Zone 2
-            '3': bytearray([0x4A, 0x00, 0x55]),  # Zone 3
-            '4': bytearray([0x4C, 0x00, 0x55]),  # Zone 4
+ZONE_OFF = {'All': 0x41,  # All Zones
+            '1': 0x46,  # Zone 1
+            '2': 0x48,  # Zone 2
+            '3': 0x4A,  # Zone 3
+            '4': 0x4C,  # Zone 4
             }
 
 COLORS = {'Violet': 0x00,

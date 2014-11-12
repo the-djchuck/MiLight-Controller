@@ -1,82 +1,37 @@
-import controller
-import values
+from controller import WifiController
 
 
-class SunObject:
+class Sun:
     def __init__(self, ip_address=None, port=None):
-        self.ctl = controller.WifiController(ip_address, port)
-        self.sunrise = [[0x40, 0x95, 0x55],
-                        [0x4E, 0x03, 0x55],
-                        [0x4E, 0x04, 0x55],
-                        [0x4E, 0x05, 0x55],
-                        [0x4E, 0x06, 0x55],
-                        [0x4E, 0x07, 0x55],
-                        [0x40, 0x94, 0x55],
-                        [0x4E, 0x08, 0x55],
-                        [0x4E, 0x09, 0x55],
-                        [0x4E, 0x0A, 0x55],
-                        [0x4E, 0x0B, 0x55],
-                        [0x4E, 0x0C, 0x55],
-                        [0x40, 0x93, 0x55],
-                        [0x4E, 0x0D, 0x55],
-                        [0x4E, 0x0E, 0x55],
-                        [0x4E, 0x0F, 0x55],
-                        [0x4E, 0x10, 0x55],
-                        [0x4E, 0x11, 0x55],
-                        [0x40, 0x92, 0x55],
-                        [0x4E, 0x12, 0x55],
-                        [0x4E, 0x13, 0x55],
-                        [0x4E, 0x14, 0x55],
-                        [0x4E, 0x15, 0x55],
-                        [0x4E, 0x16, 0x55],
-                        [0x40, 0x91, 0x55],
-                        [0x4E, 0x17, 0x55],
-                        [0x4E, 0x18, 0x55],
-                        [0x4E, 0x19, 0x55],
-                        [0x4E, 0x1A, 0x55],
-                        [0x4E, 0x1B, 0x55]]
-        self.sunset = [[0x40, 0x95, 0x55],
-                       [0x4E, 0x03, 0x55],
-                       [0x4E, 0x04, 0x55],
-                       [0x4E, 0x05, 0x55],
-                       [0x4E, 0x06, 0x55],
-                       [0x4E, 0x07, 0x55],
-                       [0x40, 0x94, 0x55],
-                       [0x4E, 0x08, 0x55],
-                       [0x4E, 0x09, 0x55],
-                       [0x4E, 0x0A, 0x55],
-                       [0x4E, 0x0B, 0x55],
-                       [0x4E, 0x0C, 0x55],
-                       [0x40, 0x93, 0x55],
-                       [0x4E, 0x0D, 0x55],
-                       [0x4E, 0x0E, 0x55],
-                       [0x4E, 0x0F, 0x55],
-                       [0x4E, 0x10, 0x55],
-                       [0x4E, 0x11, 0x55],
-                       [0x40, 0x92, 0x55],
-                       [0x4E, 0x12, 0x55],
-                       [0x4E, 0x13, 0x55],
-                       [0x4E, 0x14, 0x55],
-                       [0x4E, 0x15, 0x55],
-                       [0x4E, 0x16, 0x55],
-                       [0x40, 0x91, 0x55],
-                       [0x4E, 0x17, 0x55],
-                       [0x4E, 0x18, 0x55],
-                       [0x4E, 0x19, 0x55],
-                       [0x4E, 0x1A, 0x55],
-                       [0x4E, 0x1B, 0x55]]
+        self.milight = WifiController(ip_address=ip_address, port=port)
 
-    def start_sunrise(self, zone=0, step_time=30):
-        """
-        This will simulate a sunrise for selected zone
-        """
-        self.ctl.send_message([values.ZONE_ON[zone], 0x00, 0x55])
-        self.ctl.send_message([0x4E, 0x02, 0x55])
-        self.ctl.send_multiple_messages(self.sunrise, step_time)
+    def sunrise(self, zone='All'):
+        self.milight.zone_on(zone=zone)
+        self.milight.quick_pause()
+        self.milight.dim()
+        self.milight.custom_color(color=0x95)
+        self.milight.bright_over_time(seconds=60, brightness_level=5)
+        self.milight.custom_color(color=0x94)
+        self.milight.bright_over_time(seconds=60, brightness_level=10)
+        self.milight.custom_color(color=0x93)
+        self.milight.bright_over_time(seconds=60, brightness_level=15)
+        self.milight.custom_color(color=0x92)
+        self.milight.bright_over_time(seconds=60, brightness_level=20)
+        self.milight.custom_color(color=0x91)
+        self.milight.bright_over_time(seconds=60, brightness_level=25)
 
-    def start_sunset(self, zone=0):
-        """
-        This will simulate a sunset for selected zone
-        """
-        self.ctl.send_multiple_messages(self.sunset, sleep_time=30)
-        self.ctl.send_message([values.ZONE_OFF[zone], 0x00, 0x55])
+    def sunset(self, zone='All'):
+        self.milight.zone_on(zone=zone)
+        self.milight.quick_pause()
+        self.milight.bright()
+        self.milight.custom_color(color=0x91)
+        self.milight.dim_over_time(seconds=60, dim_level=20)
+        self.milight.custom_color(color=0x92)
+        self.milight.dim_over_time(seconds=60, dim_level=15)
+        self.milight.custom_color(color=0x93)
+        self.milight.dim_over_time(seconds=60, dim_level=10)
+        self.milight.custom_color(color=0x94)
+        self.milight.dim_over_time(seconds=60, dim_level=5)
+        self.milight.custom_color(color=0x95)
+        self.milight.dim_over_time(seconds=60, dim_level=0)
+
